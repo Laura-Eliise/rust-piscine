@@ -38,28 +38,42 @@ fn main() {
 }
 
 pub fn tic_tac_toe(table: Vec<Vec<&str>>) -> String {
-    if diagonals("X", table) /*|| horizontal("X", table) || vertical("X", table)*/ {
+    if diagonals("X", &table) || horizontal("X", &table) || vertical("X", &table) {
         return String::from("player X won")
     }
 
-    // if diagonals("O", table) || horizontal("O", table) || vertical("O", table) {
-    //     return "player O won"
-    // }
+    if diagonals("O", &table) || horizontal("O", &table) || vertical("O", &table) {
+        return String::from("player O won")
+    }
 
     return String::from("Tie")
 }
 
 pub fn diagonals(p: &str, t: &Vec<Vec<&str>>) -> bool {
-    // if t.0.0 + t.1.1 + t.2.2 == p.to_owned()+p+p {
-    //     return true
-    // }
+    let win = p.to_owned()+p+p;
+    if t[0][0].to_owned() + t[1][1] + t[2][2] == win ||
+       t[2][0].to_owned() + t[1][1] + t[0][2] == win {
+        return true
+    }
     return false
 }
 
-pub fn horizontal(player: &str, table: &Vec<Vec<&str>>) -> bool {
+pub fn horizontal(p: &str, t: &Vec<Vec<&str>>) -> bool {
+    let win = p.to_owned()+p+p;
+    if t[0][0].to_owned() + t[0][1] + t[0][2] == win || 
+       t[1][0].to_owned() + t[1][1] + t[1][2] == win ||
+       t[2][0].to_owned() + t[2][1] + t[2][2] == win {
+        return true
+    }
     return false
 }
 
-pub fn vertical(player: &str, table: &Vec<Vec<&str>>) -> bool {
+pub fn vertical(p: &str, t: &Vec<Vec<&str>>) -> bool {
+    let win = p.to_owned()+p+p;
+    if t[0][0].to_owned() + t[1][0] + t[2][0] == win || 
+       t[0][1].to_owned() + t[1][1] + t[2][1] == win ||
+       t[0][2].to_owned() + t[1][2] + t[2][2] == win {
+        return true
+    }
     return false
 }
