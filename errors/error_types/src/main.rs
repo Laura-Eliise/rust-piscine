@@ -1,6 +1,5 @@
 pub use chrono::{Utc, NaiveDate};
-use chrono::Datelike;
-use chrono::Timelike;
+use chrono::format::strftime::StrftimeItems;
 
 // this will be the structure that wil handle the errors
 #[derive(Debug, Eq, PartialEq)]
@@ -14,9 +13,10 @@ pub struct FErr {
 impl FErr {
     pub fn new(name: String, error: String, err: String) -> FErr {
         let t = Utc::now();
+        let fmt = StrftimeItems::new("%Y-%m-%d %H:%M:%S");
         FErr {
             form_values: (name, error),
-            date: format!("{}-{}-{} {}:{}:{}", t.year(), t.month(), t.day(), t.hour(), t.minute(), t.second()),
+            date: t.format_with_items(fmt.clone()).to_string(),
             err: err,
         }
     }
